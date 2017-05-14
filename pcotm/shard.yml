@@ -1,0 +1,12 @@
+name: pcotm
+version: 0.0.1
+
+targets:
+  pcotm:
+    main: app.cr
+
+crystal: 0.20.4
+
+dependencies:
+  crono:
+    github: jwoertink/crono

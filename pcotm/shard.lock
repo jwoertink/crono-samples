@@ -1,0 +1,10 @@
+version: 1.0
+shards:
+  crono:
+    github: jwoertink/crono
+    commit: 0d9c0e07f6bb7a2b0238a34b4c545160cd830733
+
+  sdl:
+    github: ysbaddaden/sdl.cr
+    commit: be7532b52599a8a4c81ae119622ec180eda99af6
+

@@ -1,0 +1,3 @@
+class Phone < GameObject
+end
+
