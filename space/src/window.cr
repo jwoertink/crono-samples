@@ -11,13 +11,13 @@ class Window < Crono::Window
 
     @background_image = Crono::Image.new("media/space.png", {640, 480})
     @player = Player.new
-    @player.warp(320, 240)
+    @player.warp(320.0, 240.0)
 
     @stars = [] of Star
   end
 
   def draw
-    @background_image.draw(0, 0, ZOrder::BACKGROUND)
+    brush.draw(@background_image, {0, 0})
     @player.draw
     @stars.each { |star| star.draw }
     #@font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, Gosu::Color::YELLOW)
