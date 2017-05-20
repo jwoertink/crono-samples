@@ -1,10 +1,4 @@
 class Window < Crono::Window
-  enum ZOrder
-    BACKGROUND
-    STARS
-    PLAYER
-    UI
-  end
 
   def initialize
     initialize(640, 480)
