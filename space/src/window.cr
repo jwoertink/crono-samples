@@ -26,7 +26,11 @@ class Window < Crono::Window
   end
 
   def update
-
+    player.move
+    player.collect_stars(@stars)
+    #if rand(100) < 4 && @stars.size < 25
+    #  #@stars.push(Star.new(@star_anim))
+    #end
   end
 
   def key_down(key)
@@ -43,10 +47,5 @@ class Window < Crono::Window
     if key.up?
       player.accelerate
     end
-    player.move
-    #@player.collect_stars(@stars)
-    #if rand(100) < 4 && @stars.size < 25
-    #  #@stars.push(Star.new(@star_anim))
-    #end
   end
 end

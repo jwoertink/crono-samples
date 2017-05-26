@@ -7,7 +7,8 @@ class Player
     img_path = File.join(__DIR__, "assets", "images", "starfighter.bmp")
     @image = Crono::Image.new(img_path, {50, 50})
     #@beep = Gosu::Sample.new("media/beep.wav")
-    @x = @y = @vel_x = @vel_y = 0
+    @x = @y = 0
+    @vel_x = @vel_y = 0.0
     @angle = 0
     @score = 0
   end
@@ -25,18 +26,18 @@ class Player
   end
   
   def accelerate
-    #@vel_x += Gosu.offset_x(@angle, 0.5)
-    #@vel_y += Gosu.offset_y(@angle, 0.5)
+    @vel_x += Crono.offset_x(@angle, 0.5)
+    @vel_y += Crono.offset_y(@angle, 0.5)
   end
   
   def move
-    @x += @vel_x
-    @y += @vel_y
+    @x += @vel_x.ceil.to_i32
+    @y += @vel_y.ceil.to_i32
     @x %= 640
     @y %= 480
     
-    @vel_x = (@vel_x * 9.5).floor.to_i32
-    @vel_y = (@vel_y * 9.5).floor.to_i32
+    @vel_x *= 0.95
+    @vel_y *= 0.95
   end
 
   def collect_stars(stars)
