@@ -1,8 +1,14 @@
 class Player
+  property x, y, angle
+  property image
+  getter score
+
   def initialize
-    @image = Crono::Image.new("media/starfighter.bmp", {50, 50})
+    img_path = File.join(__DIR__, "assets", "images", "starfighter.bmp")
+    @image = Crono::Image.new(img_path, {50, 50})
     #@beep = Gosu::Sample.new("media/beep.wav")
-    @x = @y = @vel_x = @vel_y = @angle = 0.0
+    @x = @y = @vel_x = @vel_y = 0
+    @angle = 0
     @score = 0
   end
 
@@ -11,11 +17,11 @@ class Player
   end
   
   def turn_left
-    @angle -= 4.5
+    @angle -= 4
   end
   
   def turn_right
-    @angle += 4.5
+    @angle += 4
   end
   
   def accelerate
@@ -29,28 +35,20 @@ class Player
     @x %= 640
     @y %= 480
     
-    @vel_x *= 0.95
-    @vel_y *= 0.95
-  end
-
-  def draw
-    #@image.draw_rot(@x, @y, 1, @angle)
-  end
-
-  def score
-    @score
+    @vel_x = (@vel_x * 9.5).floor.to_i32
+    @vel_y = (@vel_y * 9.5).floor.to_i32
   end
 
   def collect_stars(stars)
-    stars.reject! do |star|
+    #stars.reject! do |star|
       #if Gosu.distance(@x, @y, star.x, star.y) < 35
-        @score += 10
+        #@score += 10
         #@beep.play
-        true
+        #true
       #else
         #false
       #end
-    end
+    #end
   end
 end
 
