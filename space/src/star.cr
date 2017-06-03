@@ -1,20 +1,17 @@
 class Star
   getter x, y
+  property image
 
-  def initialize(animation)
-    @animation = animation
+  def initialize
+    img_path = File.join(__DIR__, "assets", "images", "star.png")
+    @image = Crono::Image.new(img_path, {25, 25})
     @color = Crono::Color::BLACK
     #@color.red = rand(256 - 40) + 40
     #@color.green = rand(256 - 40) + 40
     #@color.blue = rand(256 - 40) + 40
-    @x = rand * 640
-    @y = rand * 480
+    @x = rand(640).as(Int32)
+    @y = rand(480).as(Int32)
   end
 
-  def draw  
-    #img = @animation[Gosu.milliseconds / 100 % @animation.size]
-    #img.draw(@x - img.width / 2.0, @y - img.height / 2.0,
-    #    Window::ZOrder::STARS, 1, 1, @color, :add)
-  end
 end
 

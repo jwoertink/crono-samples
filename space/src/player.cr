@@ -18,16 +18,16 @@ class Player
   end
   
   def turn_left
-    @angle -= 4
+    @angle -= 8
   end
   
   def turn_right
-    @angle += 4
+    @angle += 8
   end
   
   def accelerate
-    @vel_x += Crono.offset_x(@angle, 0.5)
-    @vel_y += Crono.offset_y(@angle, 0.5)
+    @vel_x += Crono.offset_x(@angle, 1.5)
+    @vel_y += Crono.offset_y(@angle, 1.5)
   end
   
   def move
@@ -36,20 +36,20 @@ class Player
     @x %= 640
     @y %= 480
     
-    @vel_x *= 0.95
-    @vel_y *= 0.95
+    @vel_x *= 0.75
+    @vel_y *= 0.75
   end
 
-  def collect_stars(stars)
-    #stars.reject! do |star|
-      #if Gosu.distance(@x, @y, star.x, star.y) < 35
-        #@score += 10
+  def collect_stars(stars : Array(Star))
+    stars.reject! do |star|
+      if Crono.distance(@x.to_f, @y.to_f, star.x.to_f, star.y.to_f) < 35
+        @score += 10
         #@beep.play
-        #true
-      #else
-        #false
-      #end
-    #end
+        true
+      else
+        false
+      end
+    end
   end
 end
 
