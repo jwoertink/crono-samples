@@ -1,10 +1,10 @@
 class Star
   getter x, y
-  property image
+  property image : Crono::Image::Tiles
 
   def initialize
     img_path = File.join(__DIR__, "assets", "images", "star.png")
-    @image = Crono::Image.new(img_path, {25, 25})
+    @image = Crono::Image.load_tiles(img_path, {25, 25})
     @color = Crono::Color::BLACK
     #@color.red = rand(256 - 40) + 40
     #@color.green = rand(256 - 40) + 40
