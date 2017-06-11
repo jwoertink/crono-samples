@@ -26,7 +26,7 @@ class Window < Crono::Window
   # The order of drawing is the z-index 
   def draw
     brush.draw(@background_image.not_nil!, {0, 0})
-    @stars.each { |star| 
+    @stars.each { |star|
       brush.animate(star.image, {star.x, star.y}) 
     }
     brush.draw(player.image, {player.x, player.y}, player.angle)
