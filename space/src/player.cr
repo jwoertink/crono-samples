@@ -9,7 +9,7 @@ class Player
     #@beep = Gosu::Sample.new("media/beep.wav")
     @x = @y = 0
     @vel_x = @vel_y = 0.0
-    @angle = 0
+    @angle = 0.0
     @score = 0
   end
 
@@ -18,11 +18,11 @@ class Player
   end
   
   def turn_left
-    @angle -= 8
+    @angle -= 8.0
   end
   
   def turn_right
-    @angle += 8
+    @angle += 8.0
   end
   
   def accelerate
@@ -31,8 +31,8 @@ class Player
   end
   
   def move
-    @x += @vel_x.ceil.to_i32
-    @y += @vel_y.ceil.to_i32
+    @x += @vel_x.to_i32
+    @y += @vel_y.to_i32
     @x %= 640
     @y %= 480
     
