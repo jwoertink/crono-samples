@@ -3,7 +3,7 @@ class InfoScreen
     @background = Crono::Image.new(asset_path("info-bg.png"), {@window.width, @window.height})
     @help_text = Crono::Font.new(asset_path("PressStart2P-Regular.ttf"), 34)
     @help_text.text = "ABOUT #PCOTM"
-    @help_text.color = {191, 32, 47, 255} #darker red
+    @help_text.color = Crono::Color[191, 32, 47] #darker red
   end
 
   def draw
