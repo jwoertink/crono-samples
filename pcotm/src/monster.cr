@@ -13,7 +13,21 @@ class Monster
     @start_position = 49
   end
 
-  def draw
+  def update(move_x)
+    if move_x == 0
+      @cur_image = @standing
+    end
+    if @vy < 0
+      @cur_image = @jump
+    end
+    if move_x > 0
+      @dir = :right
+      move_x.times { @x += 1 if would_fit?(20, 0) }
+    end
+
+  end
+
+  def draw(camera_x, camera_y)
     if @dir == :left
       offs_x = -25
       factor = 1.0
@@ -21,31 +35,24 @@ class Monster
       offs_x = 25
       factor = -1.0
     end
-    #puts "drawing #{@x} #{@y}"
-    #@x = @x + offs_x
-    #@y = @y -  49 #@start_position
-
-    @window.brush.draw(@cur_image, {@x, @y})
-  end
-
-  def fall
-    #@start_position -= 1
-  end
-
-  def collision?
-    # need to know where I'm at relative to the scene
-    #@window.has_object_at?(@x, @y)
+    x = @x + offs_x + camera_x
+    y = @y - 49 + camera_y
+    @window.brush.draw(@cur_image, {x, y})
   end
 
   def key_down(key)
     case key
     when .left?
-      @x -= 5
+      @x -= 15
       @cur_image = @walk_left
     when .right?
-      @x += 5
+      @x += 15
       @cur_image = @walk_right
     end
+  end
+
+  def would_fit?(offs_x, offs_y)
+    !@window.map.not_nil!.solid?(@x + offs_x, @y + offs_y) && !@window.map.not_nil!.solid?(@x + offs_x, @y + offs_y - 45) 
   end
 end
 

@@ -37,15 +37,15 @@ class Map
     @total = @phones.size
   end
 
-  def draw
+  def draw(camera_x, camera_y)
     height.times do |y|
       width.times do |x|
         row = @tiles[x].as(Array(Int32))
         col = row[y]
         tile = @tileset[col]?
         if tile
-          tile.x = x * 45
-          tile.y = y * 45
+          tile.x = x * 45 - camera_x
+          tile.y = y * 45 - camera_y
           @window.brush.draw(tile.image, {tile.x, tile.y})
         end
       end

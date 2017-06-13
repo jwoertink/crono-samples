@@ -3,18 +3,18 @@ class MonsterSelectScreen
     @background = Crono::Image.new(asset_path("monster-select-bg.png"), {@window.width, @window.height})
     @monsters = [] of Monster
     @colors = %w(blue green yellow)
-    x = 81
-    @selector = OptionSelector.new(@window, x, 270, {"value" => 3, "arrow" => "down"})
+    x = ((@window.width / @colors.size) - 50) / 2
+    @selector = OptionSelector.new(@window, x - 20, 270, {"value" => @colors.size, "arrow" => "down"})
     @colors.each do |color|
       @monsters << Monster.new(@window, x, 400, color)
-      x += 213
+      x += (@window.width / @colors.size)
     end
   end
 
   def draw
     @window.brush.draw(@background, {0, 0})
     @selector.draw
-    @monsters.map(&.draw)
+    @monsters.map(&.draw(0, 0))
   end
 
   def key_down(key)
