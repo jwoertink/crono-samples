@@ -6,7 +6,8 @@ class Player
   def initialize
     img_path = File.join(__DIR__, "assets", "images", "starfighter.bmp")
     @image = Crono::Image.new(img_path, {50, 50})
-    #@beep = Gosu::Sample.new("media/beep.wav")
+    audio_path = File.join(__DIR__, "assets", "audio", "beep.wav")
+    @beep = Crono::Sound.new(audio_path)
     @x = @y = 0
     @vel_x = @vel_y = 0.0
     @angle = 0.0
@@ -44,7 +45,7 @@ class Player
     stars.reject! do |star|
       if Crono.distance(@x.to_f, @y.to_f, star.x.to_f, star.y.to_f) < 35
         @score += 10
-        #@beep.play
+        @beep.play
         true
       else
         false
