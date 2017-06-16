@@ -3,6 +3,7 @@ class Window < Crono::Window
   property current_level : Int32
   property monster : Monster?
   property game_in_progress : Bool
+  property game_song : Crono::Song
   @current_screen : TitleScreen | InfoScreen | MonsterSelectScreen | Nil
   @background : Crono::Image?
   @game_objects : Array(GameObject)
@@ -20,6 +21,7 @@ class Window < Crono::Window
     @moving_left = false
     @moving_right = false
     @game_objects = [] of GameObject
+    @game_song = Crono::Song.new(asset_path("game-song.ogg"))
   end
 
   def after_init

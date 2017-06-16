@@ -9,6 +9,8 @@ class MonsterSelectScreen
       @monsters << Monster.new(@window, x, 400, color)
       x += (@window.width / @colors.size)
     end
+    @select_song = Crono::Song.new(asset_path("select-screen.ogg"))
+    @select_song.play
   end
 
   def draw
@@ -26,6 +28,8 @@ class MonsterSelectScreen
     when .return?
       @window.monster = Monster.new(@window, 400, 100, @colors[@selector.value - 1])
       @window.game_in_progress = true
+      @select_song.stop
+      @window.game_song.play
     end
   end
 end
