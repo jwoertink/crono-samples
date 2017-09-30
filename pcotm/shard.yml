@@ -9,4 +9,6 @@ crystal: 0.20.4
 
 dependencies:
   crono:
-    github: jwoertink/crono
+    #github: jwoertink/crono
+    path: /Users/jeremywoertink/Development/crystal/crono
+

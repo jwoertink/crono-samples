@@ -1,10 +1,10 @@
 version: 1.0
 shards:
   crono:
-    github: jwoertink/crono
-    commit: 230c4d53424cefbf977b3d952f4c60d7cb3b697f
+    path: /Users/jeremywoertink/Development/crystal/crono
+    version: 0.1.0
 
   sdl:
     github: ysbaddaden/sdl.cr
-    commit: be7532b52599a8a4c81ae119622ec180eda99af6
+    commit: d40de3177809ac2f71b5980632b422565eb0a3b4
 

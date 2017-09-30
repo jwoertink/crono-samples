@@ -43,18 +43,18 @@ class Window < Crono::Window
   end
 
   def key_pressed(key)
-    if key.left?
-      player.turn_left
-    end
-    if key.right?
-      player.turn_right
-    end
-    if key.up?
-      player.accelerate
-    end
+    player.key_pressed(key)
+    #if key.up?
+    #  player.accelerate
+    #end
+  end
+
+  def key_up(key)
+    player.key_up(key)
   end
 
   def key_down(key)
+    player.key_down(key)
     if key.escape?
       close
       return
