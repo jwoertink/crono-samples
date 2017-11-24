@@ -1,0 +1,10 @@
+version: 1.0
+shards:
+  crono:
+    path: /Users/jeremywoertink/Development/crystal/crono
+    version: 0.1.0
+
+  crsfml:
+    github: oprypin/crsfml
+    version: 2.4.10
+

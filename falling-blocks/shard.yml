@@ -1,0 +1,14 @@
+name: falling-blocks
+version: 0.0.1
+
+targets:
+  falling-blocks:
+    main: app.cr
+
+crystal: 0.23.1
+
+dependencies:
+  crono:
+    #github: jwoertink/crono
+    path: /Users/jeremywoertink/Development/crystal/crono
+
