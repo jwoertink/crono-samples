@@ -1,36 +1,44 @@
-class MonsterSelectScreen
-  def initialize(@window : Window)
-    @background = Crono::Image.new(asset_path("monster-select-bg.png"), {@window.width, @window.height})
+class MonsterSelectScreen 
+  include SF::Drawable
+
+  def initialize(@window : SF::RenderWindow)
+    # Setup background
+    background_texture = SF::Texture.from_file("src/assets/images/monster-select-screen.png")
+    background_texture.repeated = false
+    @background = SF::RectangleShape.new(@window.size)
+    @background.scale = SF.vector2(SCALE, SCALE)
+    @background.texture = background_texture
+    @background.texture_rect = SF.int_rect(0, 0, @window.size.x, @window.size.y)
+    @selector = OptionSelector.new(200, 520, {"arrow" => "down"})
     @monsters = [] of Monster
-    @colors = %w(blue green yellow)
-    x = ((@window.width / @colors.size) - 50) / 2
-    @selector = OptionSelector.new(@window, x - 20, 270, {"value" => @colors.size, "arrow" => "down"})
+    @colors = {:blue, :green, :yellow}
+    x = ((@window.size.x / 3) - 50) / 2.0
     @colors.each do |color|
-      @monsters << Monster.new(@window, x, 400, color)
-      x += (@window.width / @colors.size)
+      @monsters.push Monster.new(@window, {x, 690}, color)
+      x += (@window.size.x / 3)
     end
-    @select_song = Crono::Song.new(asset_path("select-screen.ogg"))
-    @select_song.play
+
+    @song = SF::Music.from_file("src/assets/audio/select-screen.ogg")
+    @song.loop = true
+    @song.play
   end
 
-  def draw
-    @window.brush.draw(@background, {0, 0})
-    @selector.draw
-    @monsters.map(&.draw(0, 0))
+  def key_press(event)
+    case event.code
+    when SF::Keyboard::Return
+      @song.stop
+      GAME.player = @monsters[@selector.current_value - 1]
+      game_screen = GameScreen.new(@window)
+      GAME.goto(game_screen)
+    else
+      @selector.key_press(event)
+    end
   end
 
-  def key_down(key)
-    case key
-    when .left?
-      @selector.move_left
-    when .right?
-      @selector.move_right
-    when .return?
-      @window.monster = Monster.new(@window, 400, 100, @colors[@selector.value - 1])
-      @window.game_in_progress = true
-      @select_song.stop
-      @window.game_song.play
-    end
+  def draw(target, states)
+    target.draw(@background, states)
+    target.draw(@selector, states)
+    @monsters.map {|m| target.draw(m, states) }
   end
 end
 

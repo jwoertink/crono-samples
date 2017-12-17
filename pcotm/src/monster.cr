@@ -1,58 +1,65 @@
 class Monster
-  @standing : Crono::Image
-  property x, y
+  include SF::Drawable
 
-  def initialize(@window : Window, @x : Int32, @y : Int32, color : String)
-    @dir = :left
+  def initialize(@window : SF::RenderWindow, position, color)
+    monster_texture = SF::Texture.from_file("src/assets/images/monster_#{color}.png")
+    monster_texture.repeated = false
+    @monster = SF::Sprite.new
+    @monster.scale = SF.vector2(SCALE, SCALE)
+    @monster.texture = monster_texture
+    @monster.texture_rect = SF.int_rect(0, 0, 50, 50)
+    @monster.position = position
+
     @vy = 0
-    @standing = Crono::Image.new(asset_path("monster_#{color}_standing.png"), {50, 50})
-    @walk_left = Crono::Image.new(asset_path("monster_#{color}_walk_left.png"), {50, 50})
-    @walk_right = Crono::Image.new(asset_path("monster_#{color}_walk_right.png"), {50, 50})
-    @jump = Crono::Image.new(asset_path("monster_#{color}_jump.png"), {50, 50})
-    @cur_image = @standing
-    @start_position = 49
+    @x = 0
+    @y = 0
   end
 
-  def update(move_x)
-    if move_x == 0
-      @cur_image = @standing
+  def jump
+    if GAME.map.solid?(@x, @y + 1)  
+      @vy = -20
     end
-    if @vy < 0
-      @cur_image = @jump
-    end
-    if move_x > 0
-      @dir = :right
-      move_x.times { @x += 1 if would_fit?(20, 0) }
-    end
-
   end
 
-  def draw(camera_x, camera_y)
-    if @dir == :left
-      offs_x = -25
-      factor = 1.0
-    else
-      offs_x = 25
-      factor = -1.0
+  def key_press(event)
+    case event.code
+    when SF::Keyboard::Space, SF::Keyboard::Up
+      jump  
     end
-    x = @x + offs_x + camera_x
-    y = @y - 49 + camera_y
-    @window.brush.draw(@cur_image, {x, y})
   end
 
-  def key_down(key)
-    case key
-    when .left?
-      @x -= 15
-      @cur_image = @walk_left
-    when .right?
-      @x += 15
-      @cur_image = @walk_right
+  def draw(target, states)
+    if GAME.in_progress?
+      @vy += 1
+      if @vy > 0
+        @vy.times do 
+          if would_fit?(0, 1)
+            @y += 1
+          else 
+            @vy = 0
+          end
+        end
+      end
+      #if @vy < 0
+      #  @vy.abs.times do 
+      #    if would_fit?(0, -1)
+      #      @y -= 1
+      #    else
+      #      @vy = 0
+      #    end
+      #  end
+      #end
     end
+    target.draw(@monster, states)
   end
 
   def would_fit?(offs_x, offs_y)
-    !@window.map.not_nil!.solid?(@x + offs_x, @y + offs_y) && !@window.map.not_nil!.solid?(@x + offs_x, @y + offs_y - 45) 
+    !GAME.map.solid?(@x + offs_x, @y + offs_y) && 
+    !GAME.map.solid?(@x + offs_x, @y + offs_y - 45)
+  end
+
+  def position=(point : Tuple(Int32, Int32))
+    @monster.position = point
   end
 end
 
