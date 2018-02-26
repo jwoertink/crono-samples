@@ -2,6 +2,8 @@
 
 This is a crystal port of [pcotm](http://github.com/jwoertink/pcotm)
 
+![Demo play](demo.png)
+
 ## Playing
 
 ```crystal
