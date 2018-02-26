@@ -6,7 +6,7 @@ class Tile
   property sprite : SF::Sprite
 
   def initialize(sprite_object : String, position : Tuple(Int32, Int32))
-    value = SPRITES.parse(sprite_object.capitalize).to_i32 - 1
+    value = SPRITES.parse(sprite_object.capitalize).to_i32
     texture = SF::Texture.from_file("src/assets/images/land-tiles.png", SF.int_rect(60*value, 0, 60, 60))
     texture.repeated = false
     @sprite = SF::Sprite.new
@@ -17,8 +17,8 @@ class Tile
 
   #returns true if @sprite.position is at x, y
   def at?(x, y)
-    @sprite.position.x == x &&
-    @sprite.position.y == y
+    #@sprite.position.x == x && @sprite.position.y == y
+    y > 735
   end
 
 end

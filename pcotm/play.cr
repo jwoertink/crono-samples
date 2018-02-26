@@ -19,10 +19,11 @@ class GameScreen
     @current_level = 1
     GAME.map = Map.new(@window, @current_level)
     GAME.player.position = {400, 100}
+    GAME.in_progress = true
 
-    @song = SF::Music.from_file("src/assets/audio/game-song.ogg")
-    @song.loop = true
-    @song.play
+    #@song = SF::Music.from_file("src/assets/audio/game-song.ogg")
+    #@song.loop = true
+    #@song.play
   end
 
   def key_press(event)

@@ -12,11 +12,11 @@ class Map
       @width.times do |x|
         case lines[y][x, 1]
         when "\""
-          @tiles.push Tile.new("grass", {x*120 - 10, y*120 - 10})
+          @tiles.push Tile.new("grass", {(x * 120) - (x * 15), (y * 120) - (y * 15)})
         when "#"
-          @tiles.push Tile.new("dirt", {x*120 - 10, y*120 - 10})
+          @tiles.push Tile.new("dirt", {(x * 120) - (x * 15), (y * 120) - (y * 15)})
         when "x"
-          @phones.push Phone.new("phone_#{rand(14) + 1}.png", {x * 82 + 41, y * 150 + 75})
+          @phones.push Phone.new("phone_#{rand(14) + 1}.png", {x * 82 + 42, (y * 148) - 148})
         end
       end
     end
@@ -29,7 +29,7 @@ class Map
   end
 
   def solid?(x, y)
-    y < 0 || @tiles.any? {|tile| tile.at?(x / 50, y / 50) }
+    y < 0 || @tiles.any? {|tile| tile.at?(x, y) }
   end
 end
 
