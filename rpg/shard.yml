@@ -1,0 +1,17 @@
+name: rpg
+version: 0.1.0
+
+authors:
+  - Jeremy Woertink <jeremywoertink@gmail.com>
+
+targets:
+  rpg:
+    main: src/rpg.cr
+
+crystal: 1.1.1
+
+license: MIT
+
+dependencies:
+  crono:
+    path: /home/jeremy/Development/crystal/crono
